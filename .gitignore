@@ -167,3 +167,6 @@ cython_debug/
 
 # duckdb
 *.wal
+*.DS_Store
+
+lab_overview
