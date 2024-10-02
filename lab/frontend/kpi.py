@@ -9,4 +9,18 @@ class ContentKPI:
     def display_content(self):
         df = self._content.df
 
-        st.dataframe(df)
+        st.markdown("## KPIer för videor")
+        st.markdown("Nedan visas KPIer för totalt antal")
+
+        kpis = {
+            "videor": len(df),
+            "visade timmar": df["Visningstid_timmar"].sum(),
+            "prenumeranter": df["Prenumeranter"].sum(),
+            "exponeringar": df["Exponeringar"].sum()
+        }
+
+        for col, kpi in zip(st.columns(len(kpis)), kpis):
+            with col:
+                st.metric(kpi, round(kpis[kpi]))
+
+        #st.dataframe(df)

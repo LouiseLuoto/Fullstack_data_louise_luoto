@@ -1,8 +1,10 @@
 import streamlit as st
 from frontend.kpi import ContentKPI
+from frontend.graphs import ViewsTrend
 
 
 content_kpi = ContentKPI()
+views_trend = ViewsTrend()
 
 
 def layout():
@@ -11,6 +13,7 @@ def layout():
 
 
     content_kpi.display_content()
+    views_trend.display_plot()
 
 
 if __name__ == '__main__':
