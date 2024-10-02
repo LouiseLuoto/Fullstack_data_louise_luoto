@@ -1,6 +1,6 @@
---koden hämtar datum, antal visningar och visningstid från två tabeller och hoppar
---över första raden. tabellerna kopplas sedan ihop och resultatet blir formaterade 
---datum, visningar från båda tabellerna och visningstid i timmar från date_table.
+-- koden hämtar datum, antal visningar och visningstid från två tabeller och hoppar
+-- över första raden. tabellerna kopplas sedan ihop och resultatet blir formaterade 
+-- datum, visningar från båda tabellerna och visningstid i timmar från date_table.
 WITH
 	date_table AS (SELECT * FROM datum.tabelldata OFFSET 1),
 	date_total AS (SELECT * FROM datum.totalt OFFSET 1)
@@ -14,7 +14,7 @@ LEFT JOIN date_table AS tab
 ON tot.datum = tab.datum;
 
 
---antal visningar och antal rader per enhetstyp
+-- antal visningar och antal rader per enhetstyp.
 SELECT
 	enhetstyp,
 	COUNT(*) total_rows,
@@ -25,8 +25,8 @@ GROUP BY
 	enhetstyp;
 
 
---visar alla kolumner utom innehåll. sorterar resultatet efter fallande ordning på 
---visningstid (timmar), hoppar över första raden och returnerar de följande 5
+-- visar alla kolumner utom innehåll. sorterar resultatet efter fallande ordning på 
+-- visningstid (timmar), hoppar över första raden och returnerar de följande 5.
 SELECT
 	* EXCLUDE (innehåll)
 FROM
@@ -36,14 +36,14 @@ ORDER BY
 LIMIT 5;
 
 
---visningstid (timmar) finns ej i innehall.diagramdata
+-- visningstid (timmar) finns ej i innehall.diagramdata.
 SELECT
 	*
 FROM
 	innehall.diagramdata; -- ORDER BY "Visningstid (timmar)";
 
 
---antalet visningar per dag
+-- antalet visningar per dag.
 SELECT
 	STRFTIME('%Y-%m-%d',
 	datum),
@@ -52,14 +52,14 @@ FROM
 	innehall.totalt;
 
 
---tabeller i innehall
+-- tabeller i innehall.
 SELECT
 	*
 FROM
 	innehall.tabelldata;
 
 
---antal visningar per video
+-- antal visningar per video.
 SELECT
 	Videotitel,
 	Visningar
@@ -70,14 +70,9 @@ ORDER BY
 OFFSET 1;
 
 
---tabeller i tittare.tabelldata_alder
-SELECT
-	*
-FROM
-	tittare.tabelldata_alder;
+-- tittarnas kön och deras respektive andel av visningar i procent.
+SELECT * FROM tittare.tabelldata_alder;
 
-
---procentuell visning av tittarnas kön
 SELECT
 	"Tittarnas kön",
 	"Visningar (%)"
@@ -85,16 +80,21 @@ FROM
 	tittare.tabelldata_alder;
 
 
---tabeller i tittare.tabelldata_kon
-SELECT
-	*
-FROM
-	tittare.tabelldata_kon;
+-- tittarnas ålder och deras respektive andel av visningar i procent.
+SELECT * FROM tittare.tabelldata_kon;
 
-
---procentuell visning av tittarnas ålder
 SELECT
 	"Tittarnas ålder",
 	"Visningar (%)"
 FROM
 	tittare.tabelldata_kon;
+
+
+-- vilken typ av enhet tittaren använt.
+SELECT * FROM enhetstyp.tabelldata;
+
+SELECT
+    Enhetstyp,
+    Visningar
+FROM
+    enhetstyp.tabelldata;
