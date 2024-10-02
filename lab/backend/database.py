@@ -20,4 +20,4 @@ class Database:
     
 class DatabaseDataframe(Database):
     def query(self, query):
-        return self.connection.execute
+        return self.connection.execute(query).df()
