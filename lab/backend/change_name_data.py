@@ -1,15 +1,12 @@
-from pathlib import Path
 from shutil import copytree, rmtree
+from constants import CLEANED_DATA_PATH, RAW_DATA_PATH
 
 
-raw_data_path = Path(__file__).parents[2] / "lab_overview" / "backend" / "raw_data"
-cleaned_data_path = Path(__file__).parent / "cleaned_data"
+if CLEANED_DATA_PATH.is_dir():
+    rmtree(CLEANED_DATA_PATH)
 
-if cleaned_data_path.is_dir():
-    rmtree(cleaned_data_path)
+CLEANED_DATA_PATH.mkdir(parents=True, exist_ok=True)
 
-cleaned_data_path.mkdir(parents=True, exist_ok=True)
-
-for folder in raw_data_path.iterdir():
+for folder in RAW_DATA_PATH.iterdir():
     new_name = folder.name.split()[0]
-    copytree(folder, cleaned_data_path / new_name)
+    copytree(folder, CLEANED_DATA_PATH / new_name)
