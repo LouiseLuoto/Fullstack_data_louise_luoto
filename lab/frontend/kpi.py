@@ -6,16 +6,16 @@ class Content:
         self._content = QueryDatabase("SELECT * FROM marts.content_view_time;")
         
     def display_content(self):
-        df = self._content.df
+        df_content = self._content.df
         
-        st.markdown("## KPIer för videor")
+        st.subheader("KPIer för videor")
         st.markdown("Nedan visas KPIer för totalt antal")
         
         kpis = {
-            "videor": len(df),
-            "visade timmar": df["Visningstid_timmar"].sum(),
-            "prenumeranter": df["Prenumeranter"].sum(),
-            "exponeringar": df["Exponeringar"].sum()
+            "videor": len(df_content),
+            "visade timmar": df_content["Visningstid_timmar"].sum(),
+            "prenumeranter": df_content["Prenumeranter"].sum(),
+            "exponeringar": df_content["Exponeringar"].sum()
         }  
        
         for col, kpi in zip(st.columns(len(kpis)), kpis):

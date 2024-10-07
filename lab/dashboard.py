@@ -1,14 +1,13 @@
 import streamlit as st
-from frontend.kpi import Content
-from frontend.kpi import Gender
-from frontend.kpi import Age
-from frontend.graphs import ViewsTrend
+from frontend.kpi import Content, Gender, Age
+from frontend.graphs import ViewsTrend, TrafficSource
 
 
 content = Content()
 views_trend = ViewsTrend()
 gender = Gender()
 age = Age()
+traffic_source = TrafficSource()
 
 
 def layout():
@@ -19,6 +18,7 @@ def layout():
     gender.display_gender()
     age.display_age()
     views_trend.display_plot()
+    traffic_source.display_plot()
 
 
 if __name__ == "__main__":

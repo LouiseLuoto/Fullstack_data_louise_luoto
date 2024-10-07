@@ -65,4 +65,19 @@ FROM
 );
 
 
+SELECT * FROM trafikkalla.tabelldata;
+
+CREATE TABLE IF NOT EXISTS marts.traffic_source AS
+(
+SELECT 
+	Trafikkälla,
+	Visningar,
+	"Visningstid (timmar)",
+	"Genomsnittlig visningslängd"
+FROM
+	trafikkalla.tabelldata
+);
+
+
+SELECT * FROM marts.traffic_source;
 
