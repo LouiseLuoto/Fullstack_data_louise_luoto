@@ -43,7 +43,7 @@ FROM
 	innehall.diagramdata; -- ORDER BY "Visningstid (timmar)";
 
 
--- antalet visningar per dag.
+-- antal visningar per dag.
 SELECT
 	STRFTIME('%Y-%m-%d',
 	datum),
@@ -52,14 +52,14 @@ FROM
 	innehall.totalt;
 
 
--- tabeller i innehall.
+--alla tabeller i innehall.
 SELECT
 	*
 FROM
 	innehall.tabelldata;
 
 
--- antal visningar per video.
+--antal visningar per video.
 SELECT
 	Videotitel,
 	Visningar
@@ -70,7 +70,7 @@ ORDER BY
 OFFSET 1;
 
 
--- tittarnas kön och deras respektive andel av visningar i procent.
+--tittarnas kön och deras respektive andel av visningar i procent.
 SELECT * FROM tittare.tabelldata_alder;
 
 SELECT
@@ -80,7 +80,7 @@ FROM
 	tittare.tabelldata_alder;
 
 
--- tittarnas ålder och deras respektive andel av visningar i procent.
+--tittarnas ålder och deras respektive andel av visningar i procent.
 SELECT * FROM tittare.tabelldata_kon;
 
 SELECT
@@ -90,7 +90,7 @@ FROM
 	tittare.tabelldata_kon;
 
 
--- vilken typ av enhet tittaren använt.
+--vilken typ av enhet tittaren använt.
 SELECT * FROM enhetstyp.tabelldata;
 
 SELECT
