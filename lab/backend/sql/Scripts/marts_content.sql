@@ -81,3 +81,13 @@ FROM
 
 SELECT * FROM marts.traffic_source;
 
+
+-- avrunda timmar i visningstid (timmar)
+SELECT * FROM marts.traffic_source
+
+UPDATE marts.traffic_source 
+SET "Visningstid (timmar)" = ROUND("Visningstid (timmar)");
+
+-- ta bort kolumn genomsnittlig visningslängd
+ALTER TABLE marts.traffic_source 
+DROP COLUMN "Genomsnittlig visningslängd";
