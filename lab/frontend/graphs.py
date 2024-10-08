@@ -30,29 +30,84 @@ class TrafficSource:
         df_traffic_source = self._traffic_source.df
 
         fig = make_subplots(
-            rows=1, 
-            cols=2, 
-            subplot_titles=("Visningar per Trafikkälla", 
-                            "Visningar (timmar) per Trafikkälla")
+            rows=1,
+            cols=2,
+            subplot_titles=(
+                "Visningar per Trafikkälla",
+                "Visningar (timmar) per Trafikkälla",
+            ),
         )
 
         fig.add_trace(
-            go.Bar(x=df_traffic_source["Trafikkälla"], y=df_traffic_source["Visningar"], showlegend=False),
-            row=1, col=1
+            go.Bar(
+                x=df_traffic_source["Trafikkälla"],
+                y=df_traffic_source["Visningar"],
+                showlegend=False,
+            ),
+            row=1,
+            col=1,
         )
 
         fig.add_trace(
-            go.Bar(x=df_traffic_source["Trafikkälla"], y=df_traffic_source["Visningstid (timmar)"], showlegend=False),
-            row=1, col=2
+            go.Bar(
+                x=df_traffic_source["Trafikkälla"],
+                y=df_traffic_source["Visningstid (timmar)"],
+                showlegend=False,
+            ),
+            row=1,
+            col=2,
+        )
+
+        fig.update_layout(
+            title_text="", height=400, width=1200, margin=dict(t=30, b=50), title_x=0.5
+        )
+
+        st.subheader("Trafikkälla")
+        st.plotly_chart(fig)
+
+
+class ViewsByDevice:
+    def __init__(self) -> None:
+        self._views_by_device = QueryDatabase("SELECT * FROM marts.views_by_device")
+
+    def display_plot(self):
+        df_views_by_device = self._views_by_device.df
+
+        fig = make_subplots(
+            rows=1,
+            cols=2,
+            subplot_titles=("Visningar per enhet", "Visningar (timmar) per enhet"),
+        )
+
+        fig.add_trace(
+            go.Bar(
+                x=df_views_by_device["Enhetstyp"],
+                y=df_views_by_device["Visningar"],
+                showlegend=False,
+                marker=dict(color="green")
+            ),
+            row=1,
+            col=1,
+        )
+
+        fig.add_trace(
+            go.Bar(
+                x=df_views_by_device["Enhetstyp"],
+                y=df_views_by_device["Visningstid (timmar)"],
+                showlegend=False,
+                marker=dict(color="lightgreen")
+            ),
+            row=1,
+            col=2,
         )
 
         fig.update_layout(
             title_text="", 
             height=400, 
-            width=1200,
-            margin=dict(t=30, b=50),
+            width=1200, 
+            margin=dict(t=30, b=50), 
             title_x=0.5
         )
 
-        st.subheader("Trafikkälla")
+        st.subheader("Enhetstyp")
         st.plotly_chart(fig)

@@ -99,10 +99,25 @@ SELECT * FROM innehall.tabelldata;
 CREATE TABLE IF NOT EXISTS marts.views_per_video AS
 (
 SELECT
-    Videotitel, Visningar
+    Videotitel, 
+    Visningar
 FROM
     innehall.tabelldata OFFSET 1
 LIMIT (SELECT COUNT(*) FROM innehall.tabelldata) - 7);
 
 
 SELECT * FROM marts.views_per_video;
+
+
+SELECT * FROM enhetstyp.tabelldata;
+
+CREATE TABLE IF NOT EXISTS marts.views_by_device AS
+(
+SELECT
+	Enhetstyp,
+	Visningar,
+	ROUND("Visningstid (timmar)") AS "Visningstid (timmar)"
+FROM
+	enhetstyp.tabelldata OFFSET 1);
+
+SELECT * FROM marts.views_by_device;
