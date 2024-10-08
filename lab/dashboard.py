@@ -16,10 +16,10 @@ def layout():
     st.markdown("Den här dashboarden syftar till att utforska datan i Kokchuns youtubekanal")    
 
     content.display_content()
+    views_trend.display_plot()
+    views_per_video.display_top_10()
     gender.display_gender()
     age.display_age()
-    views_per_video.display_top_10()
-    views_trend.display_plot()
     traffic_source.display_plot()
 
 if __name__ == "__main__":
