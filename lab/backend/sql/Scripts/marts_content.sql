@@ -82,12 +82,27 @@ FROM
 SELECT * FROM marts.traffic_source;
 
 
--- avrunda timmar i visningstid (timmar)
+--avrunda timmar i visningstid (timmar)
 SELECT * FROM marts.traffic_source
 
 UPDATE marts.traffic_source 
 SET "Visningstid (timmar)" = ROUND("Visningstid (timmar)");
 
--- ta bort kolumn genomsnittlig visningslängd
+--ta bort kolumn genomsnittlig visningslängd
 ALTER TABLE marts.traffic_source 
 DROP COLUMN "Genomsnittlig visningslängd";
+
+
+--skapa tabell visningar per video
+SELECT * FROM innehall.tabelldata;   
+
+CREATE TABLE IF NOT EXISTS marts.views_per_video AS
+(
+SELECT
+    Videotitel, Visningar
+FROM
+    innehall.tabelldata OFFSET 1
+LIMIT (SELECT COUNT(*) FROM innehall.tabelldata) - 7);
+
+
+SELECT * FROM marts.views_per_video;
