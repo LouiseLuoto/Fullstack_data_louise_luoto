@@ -1,0 +1,36 @@
+body {
+    background-color: #e9c46a;
+    margin: 0;
+} 
+
+
+.stApp {
+    background-color: transparent;
+    padding: 20px;
+}
+
+
+.main {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+
+.section {
+    margin-bottom: 30px;
+}
+
+
+.block-container {
+    padding-top: 0px;
+}
+
+
+header, .stApp > header {
+    display: none;
+}

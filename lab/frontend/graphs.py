@@ -12,10 +12,15 @@ class ViewsTrend:
     def display_plot(self):
         df_views_trend = self._views_trend.df
 
-        fig = px.line(df_views_trend, x="Datum", y="Visningar")
+        fig = px.line(
+            df_views_trend, 
+            x="Datum", 
+            y="Visningar",  
+            color_discrete_sequence=["#2a9d8f"]
+        )
 
         fig.update_layout(
-            margin=dict(t=20, b=50),
+            margin=dict(t=20, b=50)
         )
 
         st.subheader("Antal visningar under senaste månaden")
@@ -27,15 +32,15 @@ class TrafficSource:
         self._traffic_source = QueryDatabase("SELECT * FROM marts.traffic_source")
 
     def display_plot(self):
-        df_traffic_source = self._traffic_source.df
+        df_traffic_source = self._traffic_source.df.iloc[1:]
 
         fig = make_subplots(
             rows=1,
             cols=2,
             subplot_titles=(
                 "Visningar per Trafikkälla",
-                "Visningar (timmar) per Trafikkälla",
-            ),
+                "Visningar (timmar) per Trafikkälla"
+            )
         )
 
         fig.add_trace(
@@ -43,6 +48,7 @@ class TrafficSource:
                 x=df_traffic_source["Trafikkälla"],
                 y=df_traffic_source["Visningar"],
                 showlegend=False,
+                marker=dict(color="#264653")
             ),
             row=1,
             col=1,
@@ -53,13 +59,18 @@ class TrafficSource:
                 x=df_traffic_source["Trafikkälla"],
                 y=df_traffic_source["Visningstid (timmar)"],
                 showlegend=False,
+                marker=dict(color="#2a9d8f")
             ),
             row=1,
             col=2,
         )
 
         fig.update_layout(
-            title_text="", height=400, width=1200, margin=dict(t=30, b=50), title_x=0.5
+            title_text="", 
+            height=400, 
+            width=1200, 
+            margin=dict(t=30, b=50), 
+            title_x=0.5
         )
 
         st.subheader("Trafikkälla")
@@ -76,7 +87,8 @@ class ViewsByDevice:
         fig = make_subplots(
             rows=1,
             cols=2,
-            subplot_titles=("Visningar per enhet", "Visningar (timmar) per enhet"),
+            subplot_titles=("Visningar per enhet", 
+                            "Visningar (timmar) per enhet")
         )
 
         fig.add_trace(
@@ -84,10 +96,10 @@ class ViewsByDevice:
                 x=df_views_by_device["Enhetstyp"],
                 y=df_views_by_device["Visningar"],
                 showlegend=False,
-                marker=dict(color="green")
+                marker=dict(color="#e76f51")
             ),
             row=1,
-            col=1,
+            col=1, 
         )
 
         fig.add_trace(
@@ -95,7 +107,7 @@ class ViewsByDevice:
                 x=df_views_by_device["Enhetstyp"],
                 y=df_views_by_device["Visningstid (timmar)"],
                 showlegend=False,
-                marker=dict(color="lightgreen")
+                marker=dict(color="#e9c46a")
             ),
             row=1,
             col=2,

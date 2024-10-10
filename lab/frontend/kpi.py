@@ -1,6 +1,7 @@
 import streamlit as st
 from utils.query_database import QueryDatabase
 
+
 class Content:
     def __init__(self) -> None:
         self._content = QueryDatabase("SELECT * FROM marts.content_view_time;")
@@ -12,6 +13,7 @@ class Content:
         
         kpis = {
             "videor": len(df_content),
+            "visningar": df_content["Visningar"].sum(),
             "visade timmar": df_content["Visningstid_timmar"].sum(),
             "prenumeranter": df_content["Prenumeranter"].sum(),
             "exponeringar": df_content["Exponeringar"].sum()
@@ -33,6 +35,7 @@ class Gender:
         selected_gender = st.selectbox("Välj kön", df_gender["Tittarnas kön"])
         selected_data = df_gender[df_gender["Tittarnas kön"] == selected_gender]
         st.write(f"Total andel visningar: {round(selected_data['Visningar (%)'].values[0])}%")
+
 
 class Age:
     def __init__(self) -> None:
@@ -66,12 +69,15 @@ class ViewsPerVideo:
             "https://www.youtube.com/watch?v=x9AyMOVAtV4",
             "https://www.youtube.com/watch?v=KkmrVSbMap8",
             "https://www.youtube.com/watch?v=NdM4iYw37B8",
-            "https://www.youtube.com/watch?v=V2CEc9tCHxM",
+            "https://www.youtube.com/watch?v=V2CEc9tCHxM"
         ]
 
         top_10_videos["Video URL"] = video_urls
 
         for index, row in top_10_videos.iterrows():
+
+            st.markdown('<div class="section">', unsafe_allow_html=True)
+
             col1, col2 = st.columns([2, 1]) 
             
             with col1:
@@ -84,4 +90,5 @@ class ViewsPerVideo:
                 video_embed = f"<iframe width='210' height='110' src='https://www.youtube.com/embed/{video_id}' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
                 st.markdown(video_embed, unsafe_allow_html=True)  # Visa videon med HTML
                 
+            st.markdown('</div>', unsafe_allow_html=True)
             st.markdown("---")  
